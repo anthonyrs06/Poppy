@@ -23,6 +23,13 @@ const App = () => {
     "Nostalgic comfort viewing"
   ];
 
+  const toggleStreamingOptions = (recId) => {
+    setExpandedStreaming(prev => ({
+      ...prev,
+      [recId]: !prev[recId]
+    }));
+  };
+
   const handleMoodSubmit = async (e) => {
     e.preventDefault();
     if (!moodQuery.trim()) return;
