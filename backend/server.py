@@ -262,7 +262,7 @@ async def get_recommendations(mood_query: MoodQuery):
             tmdb_data = await search_tmdb_content(title, content_type)
             
             # Get streaming availability
-            streaming_info = await get_streaming_availability(title)
+            streaming_info = await get_streaming_availability(title, content_type)
             
             if tmdb_data:
                 recommendation = Recommendation(
