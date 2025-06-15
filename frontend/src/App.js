@@ -222,15 +222,45 @@ function App() {
                     {/* Streaming Availability */}
                     {rec.streaming_availability && rec.streaming_availability.length > 0 && (
                       <div className="mb-4">
-                        <p className="text-purple-300 text-sm font-medium mb-2">Watch on:</p>
-                        <div className="flex flex-wrap gap-2">
+                        <p className="text-purple-300 text-sm font-medium mb-2 flex items-center">
+                          <span className="w-4 h-4 mr-2">📺</span>
+                          Available on:
+                        </p>
+                        <div className="space-y-2">
                           {rec.streaming_availability.map((service, idx) => (
-                            <span
+                            <div
                               key={idx}
-                              className="px-3 py-1 bg-green-600/30 text-green-200 rounded-full text-xs border border-green-500/50"
+                              className="flex items-center justify-between p-2 bg-white/5 rounded-lg border border-white/10"
                             >
-                              {service.service}
-                            </span>
+                              <div className="flex items-center space-x-2">
+                                <span className="text-green-400 font-medium text-sm">
+                                  {service.service}
+                                </span>
+                                {service.quality && (
+                                  <span className="px-2 py-1 bg-blue-600/30 text-blue-200 rounded text-xs">
+                                    {service.quality}
+                                  </span>
+                                )}
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                {service.price && service.type === 'rent' && (
+                                  <span className="text-yellow-300 text-xs font-medium">
+                                    {service.price}
+                                  </span>
+                                )}
+                                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                  service.type === 'subscription' 
+                                    ? 'bg-green-600/30 text-green-200 border border-green-500/50' 
+                                    : service.type === 'rent'
+                                    ? 'bg-yellow-600/30 text-yellow-200 border border-yellow-500/50'
+                                    : 'bg-purple-600/30 text-purple-200 border border-purple-500/50'
+                                }`}>
+                                  {service.type === 'subscription' ? 'Included' : 
+                                   service.type === 'rent' ? 'Rent' : 
+                                   service.type === 'buy' ? 'Buy' : service.type}
+                                </span>
+                              </div>
+                            </div>
                           ))}
                         </div>
                       </div>
