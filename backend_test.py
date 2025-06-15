@@ -209,14 +209,19 @@ def run_tests():
     moods = [
         "I need something cozy for a rainy evening",
         "Action-packed weekend vibes",
-        "Something to make me laugh after a long day"
+        "Something to make me laugh after a long day",
+        # New test cases for streaming availability
+        "Disney movie for family night",
+        "Marvel superhero action",
+        "Binge-worthy Netflix series",
+        "HBO prestige drama"
     ]
     
     recommendations_success = False
     for mood in moods:
         if tester.test_recommendations_endpoint(mood):
             recommendations_success = True
-            break
+            # Don't break, test all moods to verify streaming availability for different content types
     
     # Test history endpoint
     history_success = tester.test_history_endpoint()
