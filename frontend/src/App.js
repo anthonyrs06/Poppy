@@ -230,15 +230,25 @@ const App = () => {
                     {/* Streaming Availability */}
                     {rec.streaming_availability && rec.streaming_availability.length > 0 && (
                       <div className="mb-4">
-                        <p className="text-purple-300 text-sm font-medium mb-2 flex items-center">
-                          <span className="w-4 h-4 mr-2">📺</span>
-                          Available on:
-                        </p>
+                        <div className="flex items-center justify-between mb-2">
+                          <p className="text-purple-300 text-sm font-medium flex items-center">
+                            <span className="w-4 h-4 mr-2">📺</span>
+                            Available on:
+                          </p>
+                          {rec.streaming_availability.length > 2 && (
+                            <button
+                              onClick={() => toggleStreamingOptions(rec.id)}
+                              className="text-purple-400 hover:text-purple-300 text-xs underline"
+                            >
+                              {expandedStreaming[rec.id] ? 'Show less' : `+${rec.streaming_availability.length - 2} more`}
+                            </button>
+                          )}
+                        </div>
                         <div className="space-y-2">
-                          {rec.streaming_availability.map((service, idx) => (
+                          {(expandedStreaming[rec.id] ? rec.streaming_availability : rec.streaming_availability.slice(0, 2)).map((service, idx) => (
                             <div
                               key={idx}
-                              className="flex items-center justify-between p-2 bg-white/5 rounded-lg border border-white/10"
+                              className="flex items-center justify-between p-2 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-colors duration-200"
                             >
                               <div className="flex items-center space-x-2">
                                 <span className="text-green-400 font-medium text-sm">
@@ -261,12 +271,22 @@ const App = () => {
                                     ? 'bg-green-600/30 text-green-200 border border-green-500/50' 
                                     : service.type === 'rent'
                                     ? 'bg-yellow-600/30 text-yellow-200 border border-yellow-500/50'
+                                    : service.type === 'buy'
+                                    ? 'bg-orange-600/30 text-orange-200 border border-orange-500/50'
                                     : 'bg-purple-600/30 text-purple-200 border border-purple-500/50'
                                 }`}>
                                   {service.type === 'subscription' ? 'Included' : 
                                    service.type === 'rent' ? 'Rent' : 
                                    service.type === 'buy' ? 'Buy' : service.type}
                                 </span>
+                                {service.link && (
+                                  <button
+                                    onClick={() => window.open(service.link, '_blank')}
+                                    className="text-purple-400 hover:text-purple-300 text-xs"
+                                  >
+                                    →
+                                  </button>
+                                )}
                               </div>
                             </div>
                           ))}
