@@ -269,19 +269,17 @@ def run_tests():
     moods = [
         "I need something cozy for a rainy evening",
         "Action-packed weekend vibes",
-        "Something to make me laugh after a long day",
-        # New test cases for streaming availability
-        "Disney movie for family night",
-        "Marvel superhero action",
-        "Binge-worthy Netflix series",
-        "HBO prestige drama"
+        "Something to make me laugh after a long day"
     ]
     
     recommendations_success = False
     for mood in moods:
         if tester.test_recommendations_endpoint(mood):
             recommendations_success = True
-            # Don't break, test all moods to verify streaming availability for different content types
+            break
+    
+    # Test content-specific streaming recommendations
+    content_specific_success = tester.test_content_specific_streaming()
     
     # Test history endpoint
     history_success = tester.test_history_endpoint()
@@ -299,6 +297,7 @@ def run_tests():
     print("\n📝 ENDPOINT STATUS:")
     print(f"Health Endpoint: {'✅ PASS' if health_success else '❌ FAIL'}")
     print(f"Recommendations Endpoint: {'✅ PASS' if recommendations_success else '❌ FAIL'}")
+    print(f"Content-Specific Streaming: {'✅ PASS' if content_specific_success else '❌ FAIL'}")
     print(f"History Endpoint: {'✅ PASS' if history_success else '❌ FAIL'}")
     print(f"Feedback Endpoint: {'✅ PASS' if feedback_success else '❌ FAIL'}")
     print("=" * 50)
