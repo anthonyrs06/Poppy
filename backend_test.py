@@ -132,6 +132,66 @@ class PoppyAPITester:
             print(f"✅ Mood interpretation: '{response['mood_interpretation'][:100]}...'")
             
         return success
+        
+    def test_content_specific_streaming(self):
+        """Test content-specific streaming recommendations"""
+        test_cases = [
+            {
+                "mood": "Disney movie for family night",
+                "expected_service": "Disney+",
+                "content_type": "movie"
+            },
+            {
+                "mood": "Marvel superhero action",
+                "expected_service": "Disney+",
+                "content_type": "movie"
+            },
+            {
+                "mood": "Binge-worthy Netflix series",
+                "expected_service": "Netflix",
+                "content_type": "tv"
+            },
+            {
+                "mood": "HBO prestige drama",
+                "expected_service": "HBO Max",
+                "content_type": "tv"
+            }
+        ]
+        
+        success_count = 0
+        for test_case in test_cases:
+            print(f"\n🔍 Testing content-specific streaming for: '{test_case['mood']}'")
+            
+            success, response = self.run_test(
+                f"Content-Specific Streaming Test: {test_case['mood']}",
+                "POST",
+                "api/recommendations",
+                200,
+                data={"mood": test_case['mood'], "user_id": "test-user"}
+            )
+            
+            if success and "recommendations" in response:
+                recommendations = response["recommendations"]
+                if recommendations:
+                    # Check if any recommendation has the expected streaming service
+                    found_service = False
+                    for rec in recommendations:
+                        if rec.get("type") == test_case["content_type"]:
+                            streaming_options = rec.get("streaming_availability", [])
+                            for option in streaming_options:
+                                if option.get("service") == test_case["expected_service"]:
+                                    found_service = True
+                                    print(f"✅ Found expected streaming service '{test_case['expected_service']}' for '{rec['title']}'")
+                                    break
+                        if found_service:
+                            break
+                    
+                    if found_service:
+                        success_count += 1
+                    else:
+                        print(f"❌ Failed to find expected streaming service '{test_case['expected_service']}' for '{test_case['mood']}'")
+            
+        return success_count > 0  # Pass if at least one test case succeeds
 
     def test_history_endpoint(self):
         """Test the recommendations history endpoint"""
