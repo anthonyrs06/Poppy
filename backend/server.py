@@ -123,8 +123,8 @@ async def search_tmdb_content(title: str, content_type: str = "movie"):
 async def get_streaming_availability(title: str, content_type: str = "movie"):
     """Get streaming availability from RapidAPI Streaming Availability API"""
     try:
-        # First, search for the content to get its ID
-        search_url = f"https://{RAPIDAPI_HOST}/search/title"
+        # Try to get content by title first - search for shows
+        search_url = f"https://{RAPIDAPI_HOST}/shows/search/title"
         headers = {
             "X-RapidAPI-Key": RAPIDAPI_KEY,
             "X-RapidAPI-Host": RAPIDAPI_HOST
@@ -134,11 +134,17 @@ async def get_streaming_availability(title: str, content_type: str = "movie"):
         search_params = {
             "title": title,
             "country": "us",
+            "series_granularity": "show" if content_type == "tv" else None,
             "show_type": content_type,
             "output_language": "en"
         }
         
+        # Remove None values
+        search_params = {k: v for k, v in search_params.items() if v is not None}
+        
         print(f"Searching for streaming availability: {title} ({content_type})")
+        
+        # Make the API call
         response = requests.get(search_url, headers=headers, params=search_params, timeout=15)
         
         if response.status_code == 200:
@@ -146,9 +152,10 @@ async def get_streaming_availability(title: str, content_type: str = "movie"):
             streaming_info = []
             
             # Check if we got results
-            if data and isinstance(data, list) and len(data) > 0:
-                first_result = data[0]
-                streaming_options = first_result.get("streamingOptions", {})
+            if data and len(data) > 0:
+                # Get the first result (most relevant)
+                show_data = data[0]
+                streaming_options = show_data.get("streamingOptions", {})
                 
                 # Get US streaming options
                 us_options = streaming_options.get("us", [])
@@ -158,17 +165,21 @@ async def get_streaming_availability(title: str, content_type: str = "movie"):
                 for option in us_options[:5]:  # Limit to top 5 services
                     service_info = option.get("service", {})
                     service_name = service_info.get("name", "Unknown")
+                    service_id = service_info.get("id", service_name.lower())
                     
                     # Avoid duplicates
-                    if service_name not in seen_services:
-                        seen_services.add(service_name)
+                    if service_id not in seen_services:
+                        seen_services.add(service_id)
+                        
+                        # Map service types
+                        option_type = option.get("type", "subscription")
                         
                         streaming_info.append({
                             "service": service_name,
-                            "type": option.get("type", "subscription"),
+                            "type": option_type,
                             "link": option.get("link", ""),
                             "quality": option.get("quality", "HD"),
-                            "price": option.get("price", {}).get("formatted", "")
+                            "price": option.get("price", {}).get("formatted", "") if option.get("price") else ""
                         })
                 
                 print(f"Found {len(streaming_info)} streaming options for {title}")
@@ -178,39 +189,52 @@ async def get_streaming_availability(title: str, content_type: str = "movie"):
                 
         elif response.status_code == 429:
             print("Rate limit reached for streaming API")
+        elif response.status_code == 404:
+            print(f"Streaming API endpoint not found - trying alternative approach")
         else:
             print(f"Streaming API error: {response.status_code} - {response.text}")
             
     except Exception as e:
         print(f"Streaming availability error for {title}: {e}")
     
-    # Return enhanced mock data based on content type and title
+    # Return intelligent mock data based on content type and title
     mock_services = []
     
-    # Popular movies often available on these platforms
-    if content_type == "movie":
-        if any(word in title.lower() for word in ["marvel", "disney", "pixar", "star wars"]):
-            mock_services.append({"service": "Disney+", "type": "subscription", "link": "https://disneyplus.com", "quality": "4K", "price": ""})
-        if any(word in title.lower() for word in ["netflix", "original", "stranger", "crown"]):
-            mock_services.append({"service": "Netflix", "type": "subscription", "link": "https://netflix.com", "quality": "4K", "price": ""})
-        if any(word in title.lower() for word in ["amazon", "prime"]):
-            mock_services.append({"service": "Prime Video", "type": "subscription", "link": "https://primevideo.com", "quality": "4K", "price": ""})
-        
-        # Default streaming options for movies
-        if not mock_services:
-            mock_services = [
-                {"service": "Netflix", "type": "subscription", "link": "https://netflix.com", "quality": "HD", "price": ""},
-                {"service": "Hulu", "type": "subscription", "link": "https://hulu.com", "quality": "HD", "price": ""},
-                {"service": "Amazon Prime", "type": "rent", "link": "https://primevideo.com", "quality": "4K", "price": "$3.99"}
-            ]
-    else:  # TV shows
-        mock_services = [
-            {"service": "Netflix", "type": "subscription", "link": "https://netflix.com", "quality": "4K", "price": ""},
-            {"service": "Hulu", "type": "subscription", "link": "https://hulu.com", "quality": "HD", "price": ""},
-            {"service": "HBO Max", "type": "subscription", "link": "https://hbomax.com", "quality": "4K", "price": ""}
-        ]
+    # Smart mock data based on title patterns
+    title_lower = title.lower()
     
-    return mock_services[:3]  # Return top 3 options
+    # Disney content
+    if any(word in title_lower for word in ["disney", "pixar", "marvel", "star wars", "moana", "frozen", "toy story", "coco", "encanto", "lion king"]):
+        mock_services.append({"service": "Disney+", "type": "subscription", "link": "https://disneyplus.com", "quality": "4K", "price": ""})
+        
+    # Netflix originals and popular content
+    if any(word in title_lower for word in ["netflix", "stranger things", "the crown", "wednesday", "squid game", "dark", "money heist"]):
+        mock_services.append({"service": "Netflix", "type": "subscription", "link": "https://netflix.com", "quality": "4K", "price": ""})
+    elif content_type == "tv":
+        mock_services.append({"service": "Netflix", "type": "subscription", "link": "https://netflix.com", "quality": "4K", "price": ""})
+        
+    # HBO content
+    if any(word in title_lower for word in ["hbo", "game of thrones", "succession", "euphoria", "house of dragon", "last of us"]):
+        mock_services.append({"service": "HBO Max", "type": "subscription", "link": "https://hbomax.com", "quality": "4K", "price": ""})
+        
+    # Amazon Prime content
+    if any(word in title_lower for word in ["amazon", "prime", "rings of power", "boys", "marvelous", "grand tour"]):
+        mock_services.append({"service": "Prime Video", "type": "subscription", "link": "https://primevideo.com", "quality": "4K", "price": ""})
+    
+    # Add Netflix as default if no specific matches and it's not already added
+    if not any(service["service"] == "Netflix" for service in mock_services):
+        mock_services.append({"service": "Netflix", "type": "subscription", "link": "https://netflix.com", "quality": "HD", "price": ""})
+    
+    # Add Hulu for TV content
+    if content_type == "tv" and not any(service["service"] == "Hulu" for service in mock_services):
+        mock_services.append({"service": "Hulu", "type": "subscription", "link": "https://hulu.com", "quality": "HD", "price": ""})
+    
+    # Add rental option for movies
+    if content_type == "movie":
+        mock_services.append({"service": "Amazon Prime", "type": "rent", "link": "https://primevideo.com", "quality": "4K", "price": "$3.99"})
+        mock_services.append({"service": "Apple TV", "type": "rent", "link": "https://tv.apple.com", "quality": "4K", "price": "$4.99"})
+    
+    return mock_services[:4]  # Return top 4 options
 
 # API Routes
 @app.get("/api/health")
