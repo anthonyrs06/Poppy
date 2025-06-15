@@ -4,12 +4,13 @@ import './App.css';
 
 const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
 
-function App() {
+const App = () => {
   const [moodQuery, setMoodQuery] = useState('');
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [moodInterpretation, setMoodInterpretation] = useState('');
   const [error, setError] = useState('');
+  const [expandedStreaming, setExpandedStreaming] = useState({});
 
   const moodSuggestions = [
     "I need something cozy for a rainy evening",
