@@ -101,6 +101,32 @@ class PoppyAPITester:
                     print(f"❌ Failed - '{field}' field missing from recommendation")
                     return False
             
+            # Check streaming availability
+            if "streaming_availability" not in first_rec:
+                print("❌ Failed - 'streaming_availability' field missing from recommendation")
+                return False
+                
+            streaming_options = first_rec.get("streaming_availability", [])
+            if not isinstance(streaming_options, list):
+                print("❌ Failed - 'streaming_availability' should be a list")
+                return False
+                
+            # If streaming options exist, check their structure
+            if streaming_options:
+                first_option = streaming_options[0]
+                streaming_fields = ["service", "type", "link", "quality"]
+                for field in streaming_fields:
+                    if field not in first_option:
+                        print(f"❌ Failed - '{field}' field missing from streaming option")
+                        return False
+                
+                print(f"✅ First streaming option: {first_option['service']} ({first_option['type']})")
+                if first_option.get("price"):
+                    print(f"✅ Price information: {first_option['price']}")
+                print(f"✅ Quality: {first_option['quality']}")
+            else:
+                print("⚠️ Warning: No streaming options available for this recommendation")
+            
             print(f"✅ Received {len(recommendations)} recommendations")
             print(f"✅ First recommendation: '{first_rec['title']}' ({first_rec['type']})")
             print(f"✅ Mood interpretation: '{response['mood_interpretation'][:100]}...'")
