@@ -267,15 +267,44 @@ function App() {
                     )}
 
                     {/* Actions */}
-                    <div className="flex space-x-2">
-                      {rec.trailer_url && (
-                        <button className="flex-1 bg-red-600/20 hover:bg-red-600/30 text-red-200 border border-red-500/50 rounded-lg py-2 px-4 text-sm font-medium transition-colors duration-200">
-                          🎥 Trailer
-                        </button>
+                    <div className="space-y-3">
+                      {/* Primary streaming action */}
+                      {rec.streaming_availability && rec.streaming_availability.length > 0 && (
+                        <div className="space-y-2">
+                          {rec.streaming_availability.slice(0, 1).map((service, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => service.link && window.open(service.link, '_blank')}
+                              className="w-full bg-gradient-to-r from-green-600/20 to-green-500/20 hover:from-green-600/30 hover:to-green-500/30 text-green-200 border border-green-500/50 hover:border-green-400/70 rounded-lg py-3 px-4 font-medium transition-all duration-200 flex items-center justify-center space-x-2"
+                            >
+                              <span>▶️</span>
+                              <span>
+                                Watch on {service.service}
+                                {service.type === 'rent' && service.price && ` (${service.price})`}
+                                {service.type === 'subscription' && ' (Included)'}
+                              </span>
+                            </button>
+                          ))}
+                        </div>
                       )}
-                      <button className="flex-1 bg-blue-600/20 hover:bg-blue-600/30 text-blue-200 border border-blue-500/50 rounded-lg py-2 px-4 text-sm font-medium transition-colors duration-200">
-                        ℹ️ Details
-                      </button>
+                      
+                      {/* Secondary actions */}
+                      <div className="flex space-x-2">
+                        {rec.trailer_url && (
+                          <button className="flex-1 bg-red-600/20 hover:bg-red-600/30 text-red-200 border border-red-500/50 hover:border-red-400/70 rounded-lg py-2 px-4 text-sm font-medium transition-all duration-200 flex items-center justify-center space-x-1">
+                            <span>🎥</span>
+                            <span>Trailer</span>
+                          </button>
+                        )}
+                        <button className="flex-1 bg-blue-600/20 hover:bg-blue-600/30 text-blue-200 border border-blue-500/50 hover:border-blue-400/70 rounded-lg py-2 px-4 text-sm font-medium transition-all duration-200 flex items-center justify-center space-x-1">
+                          <span>ℹ️</span>
+                          <span>Details</span>
+                        </button>
+                        <button className="flex-1 bg-purple-600/20 hover:bg-purple-600/30 text-purple-200 border border-purple-500/50 hover:border-purple-400/70 rounded-lg py-2 px-4 text-sm font-medium transition-all duration-200 flex items-center justify-center space-x-1">
+                          <span>💾</span>
+                          <span>Save</span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
