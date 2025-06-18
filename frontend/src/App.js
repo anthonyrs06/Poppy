@@ -276,7 +276,7 @@ const App = () => {
                       {rec.genre.map((genre, idx) => (
                         <span
                           key={idx}
-                          className="px-2 py-1 bg-purple-600/30 text-purple-200 rounded-full text-xs"
+                          className="px-2 py-1 bg-red-600/30 text-amber-200 rounded-full text-xs"
                         >
                           {genre}
                         </span>
@@ -285,8 +285,8 @@ const App = () => {
 
 
                     {/* Recommendation Reason */}
-                    <div className="bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-lg p-3 mb-4">
-                      <p className="text-pink-200 text-sm font-medium">
+                    <div className="bg-gradient-to-r from-amber-600/20 to-red-600/20 rounded-lg p-3 mb-4">
+                      <p className="text-amber-200 text-sm font-medium">
                         💡 {rec.recommendation_reason}
                       </p>
                     </div>
