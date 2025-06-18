@@ -126,11 +126,15 @@ const App = () => {
     setSelectedDetails(null);
   };
 
-  // Handle ESC key to close modal
+  // Handle ESC key to close modals
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape' && selectedDetails) {
-        closeDetails();
+      if (event.key === 'Escape') {
+        if (selectedDetails) {
+          closeDetails();
+        } else if (selectedPairings) {
+          closePairings();
+        }
       }
     };
 
@@ -138,7 +142,7 @@ const App = () => {
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [selectedDetails]);
+  }, [selectedDetails, selectedPairings]);
 
   const handleTrailerClick = (trailerUrl, title) => {
     if (trailerUrl) {
