@@ -233,16 +233,16 @@ button:disabled {
 }
 
 .modal-content::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .modal-content::-webkit-scrollbar-thumb {
-  background: rgba(168, 85, 247, 0.3);
+  background: rgba(245, 158, 11, 0.3);
   border-radius: 3px;
 }
 
 .modal-content::-webkit-scrollbar-thumb:hover {
-  background: rgba(168, 85, 247, 0.5);
+  background: rgba(245, 158, 11, 0.5);
 }
 
 /* Smooth scrolling */
