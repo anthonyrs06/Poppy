@@ -377,7 +377,10 @@ const App = () => {
                             <span>Trailer</span>
                           </button>
                         )}
-                        <button className="flex-1 bg-blue-600/20 hover:bg-blue-600/30 text-blue-200 border border-blue-500/50 hover:border-blue-400/70 rounded-lg py-2 px-4 text-sm font-medium transition-all duration-200 flex items-center justify-center space-x-1">
+                        <button 
+                          onClick={() => handleDetailsClick(rec)}
+                          className="flex-1 bg-blue-600/20 hover:bg-blue-600/30 text-blue-200 border border-blue-500/50 hover:border-blue-400/70 rounded-lg py-2 px-4 text-sm font-medium transition-all duration-200 flex items-center justify-center space-x-1"
+                        >
                           <span>ℹ️</span>
                           <span>Details</span>
                         </button>
