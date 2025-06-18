@@ -148,7 +148,7 @@ const App = () => {
               <button
                 type="submit"
                 disabled={loading || !moodQuery.trim()}
-                className="px-12 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold rounded-full hover:from-pink-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 transition-all duration-200 text-lg shadow-xl"
+                className="px-12 py-4 bg-gradient-to-r from-red-600 to-amber-600 text-white font-semibold rounded-full hover:from-red-700 hover:to-amber-700 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 transition-all duration-200 text-lg shadow-xl"
               >
                 {loading ? (
                   <div className="flex items-center space-x-2">
