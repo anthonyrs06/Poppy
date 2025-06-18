@@ -435,11 +435,11 @@ const App = () => {
           >
             <div className="bg-gradient-to-br from-red-900/95 to-amber-900/95 backdrop-blur-md border border-amber-500/30 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto modal-content">
               {/* Modal Header */}
-              <div className="flex items-center justify-between p-6 border-b border-white/10">
+              <div className="flex items-center justify-between p-6 border-b border-amber-500/20">
                 <h3 className="text-2xl font-bold text-white">{selectedDetails.title}</h3>
                 <button
                   onClick={closeDetails}
-                  className="text-purple-300 hover:text-white transition-colors duration-200 text-2xl"
+                  className="text-amber-300 hover:text-white transition-colors duration-200 text-2xl"
                 >
                   ✕
                 </button>
