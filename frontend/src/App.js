@@ -124,9 +124,9 @@ const App = () => {
         {/* Hero Section */}
         <div className="text-center mb-12">
           <h2 className="text-5xl font-bold text-white mb-6">
-            What's your <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">vibe</span> today?
+            What's your <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-red-400">vibe</span> today?
           </h2>
-          <p className="text-xl text-purple-200 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-amber-200 mb-8 max-w-3xl mx-auto">
             Tell me how you're feeling or what kind of mood you're in, and I'll find the perfect movies and shows that match your energy.
           </p>
         </div>
