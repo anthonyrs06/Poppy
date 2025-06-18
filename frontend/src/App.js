@@ -193,19 +193,54 @@ const App = () => {
                   className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl overflow-hidden hover:bg-white/15 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
                 >
                   {/* Poster/Backdrop */}
-                  <div className="relative h-64 bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                    <div className="text-6xl">
-                      {rec.type === 'movie' ? '🎬' : '📺'}
+                  <div className="relative h-80 bg-gradient-to-br from-purple-500 to-pink-500 overflow-hidden">
+                    {rec.poster_url ? (
+                      <img
+                        src={rec.poster_url}
+                        alt={rec.title}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                    ) : null}
+                    
+                    {/* Fallback icon - shows when no poster or image fails to load */}
+                    <div 
+                      className={`absolute inset-0 flex items-center justify-center ${rec.poster_url ? 'hidden' : 'flex'}`}
+                      style={{display: rec.poster_url ? 'none' : 'flex'}}
+                    >
+                      <div className="text-8xl">
+                        {rec.type === 'movie' ? '🎬' : '📺'}
+                      </div>
                     </div>
-                    <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
-                      <span className={`font-bold ${getRatingColor(rec.rating)}`}>
-                        ⭐ {formatRating(rec.rating)}
-                      </span>
-                    </div>
-                    <div className="absolute top-4 left-4 bg-purple-600/80 backdrop-blur-sm rounded-full px-3 py-1">
-                      <span className="text-white text-sm font-medium capitalize">
-                        {rec.type}
-                      </span>
+                    
+                    {/* Overlay with rating and type */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30">
+                      <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm rounded-full px-3 py-1">
+                        <span className={`font-bold ${getRatingColor(rec.rating)}`}>
+                          ⭐ {formatRating(rec.rating)}
+                        </span>
+                      </div>
+                      <div className="absolute top-4 left-4 bg-purple-600/90 backdrop-blur-sm rounded-full px-3 py-1">
+                        <span className="text-white text-sm font-medium capitalize">
+                          {rec.type}
+                        </span>
+                      </div>
+                      
+                      {/* Trailer button overlay */}
+                      {rec.trailer_url && (
+                        <div className="absolute bottom-4 right-4">
+                          <button
+                            onClick={() => handleTrailerClick(rec.trailer_url, rec.title)}
+                            className="bg-red-600/90 hover:bg-red-600 text-white rounded-full p-3 shadow-lg transform hover:scale-110 transition-all duration-200"
+                            title="Watch Trailer"
+                          >
+                            <span className="text-xl">▶️</span>
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
 
