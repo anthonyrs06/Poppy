@@ -433,7 +433,7 @@ const App = () => {
               }
             }}
           >
-            <div className="bg-gradient-to-br from-purple-900/95 to-blue-900/95 backdrop-blur-md border border-white/20 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto modal-content">
+            <div className="bg-gradient-to-br from-red-900/95 to-amber-900/95 backdrop-blur-md border border-amber-500/30 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto modal-content">
               {/* Modal Header */}
               <div className="flex items-center justify-between p-6 border-b border-white/10">
                 <h3 className="text-2xl font-bold text-white">{selectedDetails.title}</h3>
