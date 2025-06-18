@@ -24,6 +24,14 @@ const App = () => {
     "Nostalgic comfort viewing"
   ];
 
+  const handleDetailsClick = (recommendation) => {
+    setSelectedDetails(recommendation);
+  };
+
+  const closeDetails = () => {
+    setSelectedDetails(null);
+  };
+
   const handleTrailerClick = (trailerUrl, title) => {
     if (trailerUrl) {
       window.open(trailerUrl, '_blank');
