@@ -364,7 +364,10 @@ const App = () => {
                       {/* Secondary actions */}
                       <div className="flex space-x-2">
                         {rec.trailer_url && (
-                          <button className="flex-1 bg-red-600/20 hover:bg-red-600/30 text-red-200 border border-red-500/50 hover:border-red-400/70 rounded-lg py-2 px-4 text-sm font-medium transition-all duration-200 flex items-center justify-center space-x-1">
+                          <button 
+                            onClick={() => handleTrailerClick(rec.trailer_url, rec.title)}
+                            className="flex-1 bg-red-600/20 hover:bg-red-600/30 text-red-200 border border-red-500/50 hover:border-red-400/70 rounded-lg py-2 px-4 text-sm font-medium transition-all duration-200 flex items-center justify-center space-x-1"
+                          >
                             <span>🎥</span>
                             <span>Trailer</span>
                           </button>
