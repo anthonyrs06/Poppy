@@ -23,6 +23,16 @@ const App = () => {
     "Nostalgic comfort viewing"
   ];
 
+  const handleTrailerClick = (trailerUrl, title) => {
+    if (trailerUrl) {
+      window.open(trailerUrl, '_blank');
+    } else {
+      // Fallback: search YouTube for trailer
+      const searchQuery = encodeURIComponent(`${title} trailer`);
+      window.open(`https://www.youtube.com/results?search_query=${searchQuery}`, '_blank');
+    }
+  };
+
   const toggleStreamingOptions = (recId) => {
     setExpandedStreaming(prev => ({
       ...prev,
