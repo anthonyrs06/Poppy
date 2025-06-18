@@ -507,8 +507,8 @@ const App = () => {
 
                 {/* Description */}
                 <div>
-                  <h4 className="text-purple-300 text-sm font-medium mb-3">Description</h4>
-                  <p className="text-purple-100 text-base leading-relaxed">
+                  <h4 className="text-amber-300 text-sm font-medium mb-3">Description</h4>
+                  <p className="text-amber-100 text-base leading-relaxed">
                     {selectedDetails.overview}
                   </p>
                 </div>
