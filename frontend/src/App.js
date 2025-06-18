@@ -424,8 +424,16 @@ const App = () => {
 
         {/* Details Modal */}
         {selectedDetails && (
-          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="bg-gradient-to-br from-purple-900/95 to-blue-900/95 backdrop-blur-md border border-white/20 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div 
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 modal-backdrop"
+            onClick={(e) => {
+              // Close modal if clicking the backdrop
+              if (e.target === e.currentTarget) {
+                closeDetails();
+              }
+            }}
+          >
+            <div className="bg-gradient-to-br from-purple-900/95 to-blue-900/95 backdrop-blur-md border border-white/20 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto modal-content">
               {/* Modal Header */}
               <div className="flex items-center justify-between p-6 border-b border-white/10">
                 <h3 className="text-2xl font-bold text-white">{selectedDetails.title}</h3>
