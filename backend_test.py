@@ -363,8 +363,8 @@ class PoppyAPITester:
             print(f"✅ Feedback submitted successfully")
             
         return success
-
-def test_genre_based_pairings(self):
+        
+    def test_genre_based_pairings(self):
         """Test that genre-based pairings are correctly generated"""
         test_cases = [
             {
