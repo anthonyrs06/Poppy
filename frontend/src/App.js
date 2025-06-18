@@ -25,6 +25,99 @@ const App = () => {
     "Nostalgic comfort viewing"
   ];
 
+  const handlePairingsClick = (recommendation) => {
+    const pairings = generatePairings(recommendation);
+    setSelectedPairings({
+      ...recommendation,
+      pairings
+    });
+  };
+
+  const closePairings = () => {
+    setSelectedPairings(null);
+  };
+
+  const generatePairings = (rec) => {
+    const genres = rec.genre || [];
+    const type = rec.type;
+    const title = rec.title.toLowerCase();
+    const reason = rec.recommendation_reason.toLowerCase();
+
+    let foods = [];
+    let drinks = [];
+    let atmosphere = "";
+
+    // Genre-based pairing logic
+    if (genres.some(g => g.toLowerCase().includes('horror'))) {
+      foods = ["Spicy popcorn", "Dark chocolate", "Candy corn", "Mini pizzas", "Jalapeño nachos"];
+      drinks = ["Red wine", "Dark cola", "Spiced cider", "Energy drinks", "Bloody Mary"];
+      atmosphere = "Turn off the lights and get ready for some thrills!";
+    } else if (genres.some(g => g.toLowerCase().includes('romance'))) {
+      foods = ["Chocolate-covered strawberries", "Wine and cheese", "Macarons", "Truffle pasta", "Heart-shaped cookies"];
+      drinks = ["Champagne", "Rosé wine", "Hot chocolate", "Strawberry smoothie", "Herbal tea"];
+      atmosphere = "Dim the lights and cozy up for a romantic evening.";
+    } else if (genres.some(g => g.toLowerCase().includes('action'))) {
+      foods = ["Loaded nachos", "BBQ wings", "Energy bars", "Spicy chips", "Meat lovers pizza"];
+      drinks = ["Energy drinks", "Cold beer", "Sports drinks", "Iced coffee", "Protein shakes"];
+      atmosphere = "Get pumped up and ready for non-stop excitement!";
+    } else if (genres.some(g => g.toLowerCase().includes('comedy'))) {
+      foods = ["Classic popcorn", "Pizza slices", "Candy mix", "Pretzels", "Ice cream"];
+      drinks = ["Craft beer", "Soda", "Milkshakes", "Fruit punch", "Iced tea"];
+      atmosphere = "Relax and get ready to laugh until your sides hurt!";
+    } else if (genres.some(g => g.toLowerCase().includes('drama'))) {
+      foods = ["Artisanal cheese", "Dark chocolate", "Olives and crackers", "Soup and bread", "Gourmet coffee"];
+      drinks = ["Red wine", "Herbal tea", "Espresso", "Whiskey", "Sparkling water"];
+      atmosphere = "Set the mood for deep storytelling and emotional moments.";
+    } else if (genres.some(g => g.toLowerCase().includes('sci-fi') || g.toLowerCase().includes('science fiction'))) {
+      foods = ["Futuristic snacks", "Pop rocks candy", "Neon-colored drinks", "Space ice cream", "Molecular gastronomy"];
+      drinks = ["Blue cocktails", "Energy drinks", "Neon smoothies", "Electrolyte water", "Carbonated beverages"];
+      atmosphere = "Enter the future with otherworldly snacks!";
+    } else if (genres.some(g => g.toLowerCase().includes('animation'))) {
+      foods = ["Colorful candy", "Animal crackers", "Fruit gummies", "Cotton candy", "Fun-shaped cookies"];
+      drinks = ["Chocolate milk", "Fruit juices", "Colorful smoothies", "Hot cocoa", "Flavored milk"];
+      atmosphere = "Bring out your inner child with playful treats!";
+    } else if (genres.some(g => g.toLowerCase().includes('documentary'))) {
+      foods = ["Healthy snacks", "Nuts and fruits", "Hummus and veggies", "Granola", "Green tea cookies"];
+      drinks = ["Green tea", "Coffee", "Fresh juices", "Kombucha", "Infused water"];
+      atmosphere = "Fuel your mind while learning something new.";
+    } else {
+      // Default pairings
+      foods = ["Classic popcorn", "Mixed nuts", "Chocolate", "Crackers", "Fresh fruit"];
+      drinks = ["Water", "Tea", "Coffee", "Juice", "Soda"];
+      atmosphere = "Enjoy your viewing experience with classic snacks!";
+    }
+
+    // Mood-based adjustments
+    if (reason.includes('cozy') || reason.includes('comfort')) {
+      foods = [...foods, "Warm cookies", "Hot soup", "Grilled cheese"];
+      drinks = [...drinks, "Hot chocolate", "Warm tea", "Mulled wine"];
+      atmosphere = "Create a warm, cozy atmosphere perfect for comfort viewing.";
+    }
+
+    if (reason.includes('family') || title.includes('disney')) {
+      foods = [...foods, "Family-size popcorn", "Fruit snacks", "Cookies"];
+      drinks = [...drinks, "Juice boxes", "Milk", "Hot chocolate"];
+      atmosphere = "Perfect for family bonding time with everyone's favorites!";
+    }
+
+    // Type-based adjustments
+    if (type === 'tv') {
+      foods = [...foods, "Easy finger foods", "Binge-worthy snacks"];
+      atmosphere += " Perfect for a binge-watching session!";
+    }
+
+    // Remove duplicates and limit to 5 items each
+    foods = [...new Set(foods)].slice(0, 5);
+    drinks = [...new Set(drinks)].slice(0, 5);
+
+    return {
+      foods,
+      drinks,
+      atmosphere,
+      moodTags: genres.slice(0, 3)
+    };
+  };
+
   const handleDetailsClick = (recommendation) => {
     setSelectedDetails(recommendation);
   };
