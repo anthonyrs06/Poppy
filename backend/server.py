@@ -93,6 +93,25 @@ Your response should be in this exact JSON format:
 Be creative, empathetic, and focus on the emotional connection between the user's mood and the content. Consider factors like pacing, tone, themes, and overall feeling of the content."""
     ).with_model("gemini", "gemini-2.0-flash").with_max_tokens(2048)
 
+def get_genre_names(genre_ids, content_type="movie"):
+    """Convert TMDB genre IDs to readable genre names"""
+    movie_genres = {
+        28: "Action", 12: "Adventure", 16: "Animation", 35: "Comedy", 80: "Crime",
+        99: "Documentary", 18: "Drama", 10751: "Family", 14: "Fantasy", 36: "History",
+        27: "Horror", 10402: "Music", 9648: "Mystery", 10749: "Romance", 878: "Science Fiction",
+        10770: "TV Movie", 53: "Thriller", 10752: "War", 37: "Western"
+    }
+    
+    tv_genres = {
+        10759: "Action & Adventure", 16: "Animation", 35: "Comedy", 80: "Crime",
+        99: "Documentary", 18: "Drama", 10751: "Family", 10762: "Kids", 9648: "Mystery",
+        10763: "News", 10764: "Reality", 10765: "Sci-Fi & Fantasy", 10766: "Soap",
+        10767: "Talk", 10768: "War & Politics", 37: "Western"
+    }
+    
+    genre_map = tv_genres if content_type == "tv" else movie_genres
+    return [genre_map.get(gid, "Unknown") for gid in genre_ids[:3]]  # Limit to 3 genres
+
 async def search_tmdb_content(title: str, content_type: str = "movie"):
     """Search for content on TMDB and get detailed information including poster and trailer"""
     try:
