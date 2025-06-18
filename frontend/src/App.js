@@ -571,7 +571,7 @@ const App = () => {
                 )}
 
                 {/* Action Buttons */}
-                <div className="flex gap-3 pt-4 border-t border-white/10">
+                <div className="flex gap-3 pt-4 border-t border-amber-500/20">
                   {selectedDetails.trailer_url && (
                     <button
                       onClick={() => handleTrailerClick(selectedDetails.trailer_url, selectedDetails.title)}
@@ -581,7 +581,7 @@ const App = () => {
                       <span>Watch Trailer</span>
                     </button>
                   )}
-                  <button className="flex-1 bg-purple-600/20 hover:bg-purple-600/30 text-purple-200 border border-purple-500/50 hover:border-purple-400/70 rounded-lg py-3 px-4 font-medium transition-all duration-200 flex items-center justify-center space-x-2">
+                  <button className="flex-1 bg-amber-600/20 hover:bg-amber-600/30 text-amber-200 border border-amber-500/50 hover:border-amber-400/70 rounded-lg py-3 px-4 font-medium transition-all duration-200 flex items-center justify-center space-x-2">
                     <span>💾</span>
                     <span>Save to List</span>
                   </button>
