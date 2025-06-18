@@ -269,10 +269,6 @@ const App = () => {
                       ))}
                     </div>
 
-                    {/* Overview */}
-                    <p className="text-purple-200 text-sm mb-4 line-clamp-3">
-                      {rec.overview}
-                    </p>
 
                     {/* Recommendation Reason */}
                     <div className="bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-lg p-3 mb-4">
