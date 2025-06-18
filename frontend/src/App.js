@@ -407,6 +407,167 @@ const App = () => {
             </p>
           </div>
         )}
+
+        {/* Details Modal */}
+        {selectedDetails && (
+          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="bg-gradient-to-br from-purple-900/95 to-blue-900/95 backdrop-blur-md border border-white/20 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-6 border-b border-white/10">
+                <h3 className="text-2xl font-bold text-white">{selectedDetails.title}</h3>
+                <button
+                  onClick={closeDetails}
+                  className="text-purple-300 hover:text-white transition-colors duration-200 text-2xl"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Modal Content */}
+              <div className="p-6 space-y-6">
+                {/* Poster and Basic Info */}
+                <div className="flex flex-col md:flex-row gap-6">
+                  {/* Poster */}
+                  <div className="flex-shrink-0">
+                    <div className="w-48 h-72 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg overflow-hidden">
+                      {selectedDetails.poster_url ? (
+                        <img
+                          src={selectedDetails.poster_url}
+                          alt={selectedDetails.title}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-6xl">
+                          {selectedDetails.type === 'movie' ? '🎬' : '📺'}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Basic Info */}
+                  <div className="flex-1 space-y-4">
+                    {/* Type and Rating */}
+                    <div className="flex items-center gap-4">
+                      <span className="px-3 py-1 bg-purple-600/30 text-purple-200 rounded-full text-sm font-medium capitalize">
+                        {selectedDetails.type}
+                      </span>
+                      <span className={`font-bold text-lg ${getRatingColor(selectedDetails.rating)}`}>
+                        ⭐ {formatRating(selectedDetails.rating)}
+                      </span>
+                    </div>
+
+                    {/* Genres */}
+                    <div>
+                      <h4 className="text-purple-300 text-sm font-medium mb-2">Genres</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedDetails.genre.map((genre, idx) => (
+                          <span
+                            key={idx}
+                            className="px-3 py-1 bg-purple-600/30 text-purple-200 rounded-full text-sm"
+                          >
+                            {genre}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Why We Recommended It */}
+                    <div>
+                      <h4 className="text-purple-300 text-sm font-medium mb-2">Why We Recommended This</h4>
+                      <div className="bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-lg p-3">
+                        <p className="text-pink-200 text-sm">
+                          💡 {selectedDetails.recommendation_reason}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <div>
+                  <h4 className="text-purple-300 text-sm font-medium mb-3">Description</h4>
+                  <p className="text-purple-100 text-base leading-relaxed">
+                    {selectedDetails.overview}
+                  </p>
+                </div>
+
+                {/* Streaming Availability */}
+                {selectedDetails.streaming_availability && selectedDetails.streaming_availability.length > 0 && (
+                  <div>
+                    <h4 className="text-purple-300 text-sm font-medium mb-3 flex items-center">
+                      <span className="w-4 h-4 mr-2">📺</span>
+                      Where to Watch
+                    </h4>
+                    <div className="space-y-3">
+                      {selectedDetails.streaming_availability.map((service, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-colors duration-200"
+                        >
+                          <div className="flex items-center space-x-3">
+                            <span className="text-green-400 font-medium">
+                              {service.service}
+                            </span>
+                            {service.quality && (
+                              <span className="px-2 py-1 bg-blue-600/30 text-blue-200 rounded text-xs">
+                                {service.quality}
+                              </span>
+                            )}
+                          </div>
+                          <div className="flex items-center space-x-3">
+                            {service.price && service.type === 'rent' && (
+                              <span className="text-yellow-300 text-sm font-medium">
+                                {service.price}
+                              </span>
+                            )}
+                            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                              service.type === 'subscription' 
+                                ? 'bg-green-600/30 text-green-200 border border-green-500/50' 
+                                : service.type === 'rent'
+                                ? 'bg-yellow-600/30 text-yellow-200 border border-yellow-500/50'
+                                : service.type === 'buy'
+                                ? 'bg-orange-600/30 text-orange-200 border border-orange-500/50'
+                                : 'bg-purple-600/30 text-purple-200 border border-purple-500/50'
+                            }`}>
+                              {service.type === 'subscription' ? 'Included' : 
+                               service.type === 'rent' ? 'Rent' : 
+                               service.type === 'buy' ? 'Buy' : service.type}
+                            </span>
+                            {service.link && (
+                              <button
+                                onClick={() => window.open(service.link, '_blank')}
+                                className="bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 px-3 py-1 rounded text-sm transition-colors duration-200"
+                              >
+                                Watch
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Action Buttons */}
+                <div className="flex gap-3 pt-4 border-t border-white/10">
+                  {selectedDetails.trailer_url && (
+                    <button
+                      onClick={() => handleTrailerClick(selectedDetails.trailer_url, selectedDetails.title)}
+                      className="flex-1 bg-red-600/20 hover:bg-red-600/30 text-red-200 border border-red-500/50 hover:border-red-400/70 rounded-lg py-3 px-4 font-medium transition-all duration-200 flex items-center justify-center space-x-2"
+                    >
+                      <span>🎥</span>
+                      <span>Watch Trailer</span>
+                    </button>
+                  )}
+                  <button className="flex-1 bg-purple-600/20 hover:bg-purple-600/30 text-purple-200 border border-purple-500/50 hover:border-purple-400/70 rounded-lg py-3 px-4 font-medium transition-all duration-200 flex items-center justify-center space-x-2">
+                    <span>💾</span>
+                    <span>Save to List</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Footer */}
