@@ -379,16 +379,27 @@ async def get_recommendations(mood_query: MoodQuery):
             streaming_info = await get_streaming_availability(title, content_type)
             
             if tmdb_data:
+                # Get genre names
+                genre_names = get_genre_names(tmdb_data.get("genre_ids", []), content_type)
+                
+                # Build poster and backdrop URLs
+                poster_url = None
+                backdrop_url = None
+                if tmdb_data.get("poster_path"):
+                    poster_url = f"https://image.tmdb.org/t/p/w500{tmdb_data['poster_path']}"
+                if tmdb_data.get("backdrop_path"):
+                    backdrop_url = f"https://image.tmdb.org/t/p/w1280{tmdb_data['backdrop_path']}"
+                
                 recommendation = Recommendation(
                     id=tmdb_data["id"],
                     title=tmdb_data["title"],
                     type=content_type,
                     overview=tmdb_data["overview"],
-                    genre=["Drama", "Comedy"] if content_type == "movie" else ["Drama", "Sci-Fi"],
+                    genre=genre_names,
                     rating=tmdb_data["vote_average"],
-                    poster_url=f"https://image.tmdb.org/t/p/w500{tmdb_data['poster_path']}" if tmdb_data.get("poster_path") else None,
-                    backdrop_url=f"https://image.tmdb.org/t/p/w1280{tmdb_data['backdrop_path']}" if tmdb_data.get("backdrop_path") else None,
-                    trailer_url=f"https://www.youtube.com/watch?v=demo-{hash(title) % 1000}",
+                    poster_url=poster_url,
+                    backdrop_url=backdrop_url,
+                    trailer_url=tmdb_data.get("trailer_url"),
                     streaming_availability=streaming_info,
                     recommendation_reason=rec.get("reason", "Perfect match for your current vibe!")
                 )
