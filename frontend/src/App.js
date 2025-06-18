@@ -32,6 +32,20 @@ const App = () => {
     setSelectedDetails(null);
   };
 
+  // Handle ESC key to close modal
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape' && selectedDetails) {
+        closeDetails();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedDetails]);
+
   const handleTrailerClick = (trailerUrl, title) => {
     if (trailerUrl) {
       window.open(trailerUrl, '_blank');
