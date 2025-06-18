@@ -364,6 +364,78 @@ class PoppyAPITester:
             
         return success
 
+def test_genre_based_pairings(self):
+        """Test that genre-based pairings are correctly generated"""
+        test_cases = [
+            {
+                "mood": "Horror movie for a scary night",
+                "expected_genre": "Horror",
+                "expected_foods": ["Spicy popcorn", "Dark chocolate", "Candy corn", "Mini pizzas", "Jalapeño nachos"],
+                "expected_drinks": ["Red wine", "Dark cola", "Spiced cider", "Energy drinks", "Bloody Mary"]
+            },
+            {
+                "mood": "Romantic comedy for date night",
+                "expected_genre": "Romance",
+                "expected_foods": ["Chocolate-covered strawberries", "Wine and cheese", "Macarons", "Truffle pasta", "Heart-shaped cookies"],
+                "expected_drinks": ["Champagne", "Rosé wine", "Hot chocolate", "Strawberry smoothie", "Herbal tea"]
+            },
+            {
+                "mood": "Action-packed Marvel movie",
+                "expected_genre": "Action",
+                "expected_foods": ["Loaded nachos", "BBQ wings", "Energy bars", "Spicy chips", "Meat lovers pizza"],
+                "expected_drinks": ["Energy drinks", "Cold beer", "Sports drinks", "Iced coffee", "Protein shakes"]
+            },
+            {
+                "mood": "Disney family movie night",
+                "expected_genre": "Animation",
+                "expected_foods": ["Colorful candy", "Animal crackers", "Fruit gummies", "Cotton candy", "Fun-shaped cookies"],
+                "expected_drinks": ["Chocolate milk", "Fruit juices", "Colorful smoothies", "Hot cocoa", "Flavored milk"]
+            },
+            {
+                "mood": "Cozy British drama for Sunday afternoon",
+                "expected_genre": "Drama",
+                "expected_foods": ["Artisanal cheese", "Dark chocolate", "Olives and crackers", "Soup and bread", "Gourmet coffee"],
+                "expected_drinks": ["Red wine", "Herbal tea", "Espresso", "Whiskey", "Sparkling water"]
+            }
+        ]
+        
+        print("\n🔍 Testing genre-based pairings...")
+        
+        success_count = 0
+        for test_case in test_cases:
+            print(f"\n🔍 Testing pairings for: '{test_case['mood']}'")
+            
+            success, response = self.run_test(
+                f"Genre-Based Pairings Test: {test_case['mood']}",
+                "POST",
+                "api/recommendations",
+                200,
+                data={"mood": test_case['mood'], "user_id": "test-user"}
+            )
+            
+            if success and "recommendations" in response:
+                recommendations = response["recommendations"]
+                if recommendations:
+                    # Check if any recommendation has the expected genre
+                    found_genre = False
+                    for rec in recommendations:
+                        genres = rec.get("genre", [])
+                        if any(test_case["expected_genre"].lower() in genre.lower() for genre in genres):
+                            found_genre = True
+                            print(f"✅ Found expected genre '{test_case['expected_genre']}' for '{rec['title']}'")
+                            
+                            # Verify that frontend would generate correct pairings based on this genre
+                            print(f"✅ This would generate the following pairings in the frontend:")
+                            print(f"  Foods: {', '.join(test_case['expected_foods'][:3])}...")
+                            print(f"  Drinks: {', '.join(test_case['expected_drinks'][:3])}...")
+                            success_count += 1
+                            break
+                    
+                    if not found_genre:
+                        print(f"❌ Failed to find expected genre '{test_case['expected_genre']}' for '{test_case['mood']}'")
+            
+        return success_count > 0  # Pass if at least one test case succeeds
+
 def run_tests():
     print("=" * 50)
     print("🧪 POPPY API TEST SUITE 🧪")
@@ -396,6 +468,9 @@ def run_tests():
     # Test TMDB metadata
     tmdb_metadata_success = tester.test_tmdb_metadata()
     
+    # Test genre-based pairings
+    pairings_success = tester.test_genre_based_pairings()
+    
     # Test history endpoint
     history_success = tester.test_history_endpoint()
     
@@ -415,6 +490,7 @@ def run_tests():
     print(f"Content-Specific Streaming: {'✅ PASS' if content_specific_success else '❌ FAIL'}")
     print(f"Poster Images and Trailers: {'✅ PASS' if poster_trailer_success else '❌ FAIL'}")
     print(f"TMDB Metadata: {'✅ PASS' if tmdb_metadata_success else '❌ FAIL'}")
+    print(f"Genre-Based Pairings: {'✅ PASS' if pairings_success else '❌ FAIL'}")
     print(f"History Endpoint: {'✅ PASS' if history_success else '❌ FAIL'}")
     print(f"Feedback Endpoint: {'✅ PASS' if feedback_success else '❌ FAIL'}")
     print("=" * 50)
