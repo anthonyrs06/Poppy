@@ -116,11 +116,11 @@ code {
 
 /* Focus states */
 .focus\:ring-2:focus {
-  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.5);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.5);
 }
 
-.focus\:ring-purple-500:focus {
-  --tw-ring-color: rgba(168, 85, 247, 0.5);
+.focus\:ring-amber-500:focus {
+  --tw-ring-color: rgba(245, 158, 11, 0.5);
 }
 
 /* Custom button styles */
