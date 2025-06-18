@@ -192,12 +192,12 @@ const App = () => {
         {/* Mood Interpretation */}
         {moodInterpretation && (
           <div className="max-w-4xl mx-auto mb-12">
-            <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6">
+            <div className="bg-black/20 backdrop-blur-sm border border-amber-500/30 rounded-2xl p-6">
               <h3 className="text-xl font-semibold text-white mb-3 flex items-center">
-                <span className="w-6 h-6 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full mr-3"></span>
+                <span className="w-6 h-6 bg-gradient-to-r from-amber-400 to-red-400 rounded-full mr-3"></span>
                 Poppy's Take on Your Vibe
               </h3>
-              <p className="text-purple-200 text-lg leading-relaxed">{moodInterpretation}</p>
+              <p className="text-amber-200 text-lg leading-relaxed">{moodInterpretation}</p>
             </div>
           </div>
         )}
