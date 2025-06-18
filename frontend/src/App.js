@@ -12,6 +12,7 @@ const App = () => {
   const [error, setError] = useState('');
   const [expandedStreaming, setExpandedStreaming] = useState({});
   const [selectedDetails, setSelectedDetails] = useState(null);
+  const [selectedPairings, setSelectedPairings] = useState(null);
 
   const moodSuggestions = [
     "I need something cozy for a rainy evening",
