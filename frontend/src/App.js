@@ -558,7 +558,7 @@ const App = () => {
                             {service.link && (
                               <button
                                 onClick={() => window.open(service.link, '_blank')}
-                                className="bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 px-3 py-1 rounded text-sm transition-colors duration-200"
+                                className="bg-red-600/30 hover:bg-red-600/50 text-amber-200 px-3 py-1 rounded text-sm transition-colors duration-200"
                               >
                                 Watch
                               </button>
