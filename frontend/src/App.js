@@ -246,7 +246,7 @@ const App = () => {
                           ⭐ {formatRating(rec.rating)}
                         </span>
                       </div>
-                      <div className="absolute top-4 left-4 bg-purple-600/90 backdrop-blur-sm rounded-full px-3 py-1">
+                      <div className="absolute top-4 left-4 bg-red-600/90 backdrop-blur-sm rounded-full px-3 py-1">
                         <span className="text-white text-sm font-medium capitalize">
                           {rec.type}
                         </span>
