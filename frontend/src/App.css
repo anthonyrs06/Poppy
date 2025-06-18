@@ -160,6 +160,38 @@ button:disabled {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
+/* Poster image styling */
+.poster-image {
+  transition: transform 0.3s ease-in-out;
+}
+
+.movie-card:hover .poster-image {
+  transform: scale(1.05);
+}
+
+/* Trailer button animation */
+.trailer-button {
+  transition: all 0.2s ease-in-out;
+}
+
+.trailer-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+}
+
+/* Image loading and error handling */
+.poster-container img {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.poster-container img.loading {
+  opacity: 0.7;
+}
+
+.poster-container img.loaded {
+  opacity: 1;
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
