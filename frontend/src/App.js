@@ -216,7 +216,7 @@ const App = () => {
                   className="bg-black/20 backdrop-blur-sm border border-amber-500/30 rounded-2xl overflow-hidden hover:bg-black/30 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
                 >
                   {/* Poster/Backdrop */}
-                  <div className="relative h-80 bg-gradient-to-br from-purple-500 to-pink-500 overflow-hidden">
+                  <div className="relative h-80 bg-gradient-to-br from-red-600 to-amber-600 overflow-hidden">
                     {rec.poster_url ? (
                       <img
                         src={rec.poster_url}
