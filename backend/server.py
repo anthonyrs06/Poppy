@@ -35,6 +35,7 @@ DB_NAME = os.getenv("DB_NAME", "poppy_database")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")
 RAPIDAPI_HOST = os.getenv("RAPIDAPI_HOST")
+TMDB_API_KEY = os.getenv("TMDB_API_KEY")
 
 # MongoDB client
 client = AsyncIOMotorClient(MONGO_URL)
