@@ -192,6 +192,115 @@ class PoppyAPITester:
                         print(f"❌ Failed to find expected streaming service '{test_case['expected_service']}' for '{test_case['mood']}'")
             
         return success_count > 0  # Pass if at least one test case succeeds
+        
+    def test_poster_images_and_trailers(self):
+        """Test that recommendations include poster images and trailer URLs"""
+        test_cases = [
+            "I want to watch Inception or similar mind-bending movies",
+            "Disney animated movies for family night",
+            "Marvel superhero action movies",
+            "Classic movies from the 80s or 90s"
+        ]
+        
+        success_count = 0
+        for mood in test_cases:
+            print(f"\n🔍 Testing poster images and trailers for: '{mood}'")
+            
+            success, response = self.run_test(
+                f"Poster Images and Trailers Test: {mood}",
+                "POST",
+                "api/recommendations",
+                200,
+                data={"mood": mood, "user_id": "test-user"}
+            )
+            
+            if success and "recommendations" in response:
+                recommendations = response["recommendations"]
+                if recommendations:
+                    # Check if recommendations have poster images and trailer URLs
+                    poster_count = 0
+                    trailer_count = 0
+                    
+                    for rec in recommendations:
+                        # Check for poster URL
+                        if rec.get("poster_url"):
+                            poster_count += 1
+                            print(f"✅ Found poster image for '{rec['title']}': {rec['poster_url'][:60]}...")
+                        else:
+                            print(f"⚠️ No poster image for '{rec['title']}'")
+                        
+                        # Check for trailer URL
+                        if rec.get("trailer_url"):
+                            trailer_count += 1
+                            print(f"✅ Found trailer URL for '{rec['title']}': {rec['trailer_url'][:60]}...")
+                        else:
+                            print(f"⚠️ No trailer URL for '{rec['title']}'")
+                    
+                    # Success if at least 50% of recommendations have posters and at least one has a trailer
+                    if poster_count >= len(recommendations) / 2:
+                        print(f"✅ {poster_count}/{len(recommendations)} recommendations have poster images")
+                        if trailer_count > 0:
+                            print(f"✅ {trailer_count}/{len(recommendations)} recommendations have trailer URLs")
+                            success_count += 1
+                        else:
+                            print("❌ No trailers found for any recommendations")
+                    else:
+                        print(f"❌ Only {poster_count}/{len(recommendations)} recommendations have poster images")
+            
+        return success_count > 0  # Pass if at least one test case succeeds
+        
+    def test_tmdb_metadata(self):
+        """Test that recommendations include real TMDB metadata"""
+        test_cases = [
+            "I want to watch Inception or similar mind-bending movies",
+            "Marvel superhero action movies"
+        ]
+        
+        success_count = 0
+        for mood in test_cases:
+            print(f"\n🔍 Testing TMDB metadata for: '{mood}'")
+            
+            success, response = self.run_test(
+                f"TMDB Metadata Test: {mood}",
+                "POST",
+                "api/recommendations",
+                200,
+                data={"mood": mood, "user_id": "test-user"}
+            )
+            
+            if success and "recommendations" in response:
+                recommendations = response["recommendations"]
+                if recommendations:
+                    # Check if recommendations have proper TMDB metadata
+                    metadata_success = True
+                    
+                    for rec in recommendations:
+                        # Check for required metadata fields
+                        if not rec.get("genre") or not isinstance(rec.get("genre"), list) or len(rec.get("genre", [])) == 0:
+                            print(f"❌ Missing or invalid genres for '{rec['title']}'")
+                            metadata_success = False
+                        else:
+                            print(f"✅ Genres for '{rec['title']}': {', '.join(rec['genre'])}")
+                        
+                        if not rec.get("rating") or not isinstance(rec.get("rating"), (int, float)):
+                            print(f"❌ Missing or invalid rating for '{rec['title']}'")
+                            metadata_success = False
+                        else:
+                            print(f"✅ Rating for '{rec['title']}': {rec['rating']}")
+                        
+                        if not rec.get("overview") or len(rec.get("overview", "")) < 20:
+                            print(f"❌ Missing or too short overview for '{rec['title']}'")
+                            metadata_success = False
+                        else:
+                            print(f"✅ Overview for '{rec['title']}': {rec['overview'][:60]}...")
+                    
+                    if metadata_success:
+                        success_count += 1
+                        print(f"✅ All recommendations for '{mood}' have proper TMDB metadata")
+                    else:
+                        print(f"❌ Some recommendations for '{mood}' are missing TMDB metadata")
+            
+        return success_count > 0  # Pass if at least one test case succeeds
 
     def test_history_endpoint(self):
         """Test the recommendations history endpoint"""
