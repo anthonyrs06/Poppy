@@ -516,7 +516,7 @@ const App = () => {
                 {/* Streaming Availability */}
                 {selectedDetails.streaming_availability && selectedDetails.streaming_availability.length > 0 && (
                   <div>
-                    <h4 className="text-purple-300 text-sm font-medium mb-3 flex items-center">
+                    <h4 className="text-amber-300 text-sm font-medium mb-3 flex items-center">
                       <span className="w-4 h-4 mr-2">📺</span>
                       Where to Watch
                     </h4>
@@ -524,7 +524,7 @@ const App = () => {
                       {selectedDetails.streaming_availability.map((service, idx) => (
                         <div
                           key={idx}
-                          className="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-colors duration-200"
+                          className="flex items-center justify-between p-3 bg-black/20 rounded-lg border border-amber-500/20 hover:bg-black/30 transition-colors duration-200"
                         >
                           <div className="flex items-center space-x-3">
                             <span className="text-green-400 font-medium">
