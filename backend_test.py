@@ -390,6 +390,12 @@ def run_tests():
     # Test content-specific streaming recommendations
     content_specific_success = tester.test_content_specific_streaming()
     
+    # Test poster images and trailers
+    poster_trailer_success = tester.test_poster_images_and_trailers()
+    
+    # Test TMDB metadata
+    tmdb_metadata_success = tester.test_tmdb_metadata()
+    
     # Test history endpoint
     history_success = tester.test_history_endpoint()
     
@@ -407,6 +413,8 @@ def run_tests():
     print(f"Health Endpoint: {'✅ PASS' if health_success else '❌ FAIL'}")
     print(f"Recommendations Endpoint: {'✅ PASS' if recommendations_success else '❌ FAIL'}")
     print(f"Content-Specific Streaming: {'✅ PASS' if content_specific_success else '❌ FAIL'}")
+    print(f"Poster Images and Trailers: {'✅ PASS' if poster_trailer_success else '❌ FAIL'}")
+    print(f"TMDB Metadata: {'✅ PASS' if tmdb_metadata_success else '❌ FAIL'}")
     print(f"History Endpoint: {'✅ PASS' if history_success else '❌ FAIL'}")
     print(f"Feedback Endpoint: {'✅ PASS' if feedback_success else '❌ FAIL'}")
     print("=" * 50)
