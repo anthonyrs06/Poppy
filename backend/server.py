@@ -94,32 +94,102 @@ Be creative, empathetic, and focus on the emotional connection between the user'
     ).with_model("gemini", "gemini-2.0-flash").with_max_tokens(2048)
 
 async def search_tmdb_content(title: str, content_type: str = "movie"):
-    """Search for content on TMDB"""
+    """Search for content on TMDB and get detailed information including poster and trailer"""
     try:
-        # Using TMDB API (free tier, no API key needed for basic search)
         base_url = "https://api.themoviedb.org/3"
         search_url = f"{base_url}/search/{content_type}"
         
-        # Note: For production, you should get a free TMDB API key
-        # For now, using the demo data approach
         params = {
+            "api_key": TMDB_API_KEY,
             "query": title,
-            "api_key": "demo"  # In production, use real API key
+            "language": "en-US",
+            "page": 1,
+            "include_adult": False
         }
         
-        # For MVP, return mock data to demonstrate the concept
-        return {
-            "id": str(uuid.uuid4()),
-            "title": title,
-            "overview": f"An engaging {content_type} that perfectly matches your mood.",
-            "genre_ids": [18, 35] if content_type == "movie" else [18, 10765],
-            "vote_average": 7.5 + (hash(title) % 30) / 10,  # Generate realistic rating
-            "poster_path": f"/demo-poster-{hash(title) % 10}.jpg",
-            "backdrop_path": f"/demo-backdrop-{hash(title) % 10}.jpg"
-        }
+        print(f"Searching TMDB for: {title} ({content_type})")
+        response = requests.get(search_url, params=params, timeout=10)
+        
+        if response.status_code == 200:
+            data = response.json()
+            results = data.get("results", [])
+            
+            if results:
+                # Get the first (most relevant) result
+                content = results[0]
+                content_id = content.get("id")
+                
+                # Get additional details including trailers
+                details_url = f"{base_url}/{content_type}/{content_id}"
+                details_params = {
+                    "api_key": TMDB_API_KEY,
+                    "language": "en-US",
+                    "append_to_response": "videos,credits"
+                }
+                
+                details_response = requests.get(details_url, params=details_params, timeout=10)
+                
+                if details_response.status_code == 200:
+                    details_data = details_response.json()
+                    
+                    # Extract trailer URL
+                    trailer_url = None
+                    videos = details_data.get("videos", {}).get("results", [])
+                    for video in videos:
+                        if video.get("site") == "YouTube" and video.get("type") in ["Trailer", "Teaser"]:
+                            trailer_url = f"https://www.youtube.com/watch?v={video.get('key')}"
+                            break
+                    
+                    # Extract cast information
+                    cast = details_data.get("credits", {}).get("cast", [])
+                    cast_names = [actor.get("name") for actor in cast[:5]]  # Top 5 cast members
+                    
+                    # Build the response
+                    tmdb_result = {
+                        "id": str(content_id),
+                        "title": content.get("title" if content_type == "movie" else "name", title),
+                        "overview": content.get("overview", f"An engaging {content_type} that perfectly matches your mood."),
+                        "genre_ids": content.get("genre_ids", []),
+                        "vote_average": content.get("vote_average", 7.0),
+                        "poster_path": content.get("poster_path"),
+                        "backdrop_path": content.get("backdrop_path"),
+                        "trailer_url": trailer_url,
+                        "cast": cast_names,
+                        "release_date": content.get("release_date" if content_type == "movie" else "first_air_date", ""),
+                        "runtime": details_data.get("runtime") if content_type == "movie" else None,
+                        "episode_count": details_data.get("number_of_episodes") if content_type == "tv" else None
+                    }
+                    
+                    print(f"Found TMDB content: {tmdb_result['title']} with poster: {tmdb_result['poster_path']}")
+                    if trailer_url:
+                        print(f"Found trailer: {trailer_url}")
+                    
+                    return tmdb_result
+                else:
+                    print(f"TMDB details error: {details_response.status_code}")
+            else:
+                print(f"No TMDB results found for: {title}")
+        else:
+            print(f"TMDB search error: {response.status_code}")
+            
     except Exception as e:
-        print(f"TMDB search error: {e}")
-        return None
+        print(f"TMDB search error for {title}: {e}")
+    
+    # Return fallback data if TMDB fails
+    return {
+        "id": str(uuid.uuid4()),
+        "title": title,
+        "overview": f"An engaging {content_type} that perfectly matches your mood.",
+        "genre_ids": [18, 35] if content_type == "movie" else [18, 10765],
+        "vote_average": 7.0 + (hash(title) % 30) / 10,
+        "poster_path": None,
+        "backdrop_path": None,
+        "trailer_url": None,
+        "cast": [],
+        "release_date": "",
+        "runtime": None,
+        "episode_count": None
+    }
 
 async def get_streaming_availability(title: str, content_type: str = "movie"):
     """Get streaming availability from RapidAPI Streaming Availability API"""
