@@ -691,6 +691,160 @@ const App = () => {
             </div>
           </div>
         )}
+
+        {/* Pairings Modal */}
+        {selectedPairings && (
+          <div 
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 modal-backdrop"
+            onClick={(e) => {
+              // Close modal if clicking the backdrop
+              if (e.target === e.currentTarget) {
+                closePairings();
+              }
+            }}
+          >
+            <div className="bg-gradient-to-br from-red-900/95 to-amber-900/95 backdrop-blur-md border border-amber-500/30 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto modal-content">
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-6 border-b border-amber-500/20">
+                <div>
+                  <h3 className="text-2xl font-bold text-white flex items-center">
+                    <span className="text-3xl mr-3">🍿</span>
+                    Perfect Pairings
+                  </h3>
+                  <p className="text-amber-300 text-sm mt-1">For "{selectedPairings.title}"</p>
+                </div>
+                <button
+                  onClick={closePairings}
+                  className="text-amber-300 hover:text-white transition-colors duration-200 text-2xl"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Modal Content */}
+              <div className="p-6 space-y-6">
+                {/* Atmosphere Setting */}
+                <div className="bg-gradient-to-r from-amber-600/20 to-red-600/20 rounded-lg p-4">
+                  <h4 className="text-amber-300 text-lg font-semibold mb-2 flex items-center">
+                    <span className="text-xl mr-2">🎭</span>
+                    Set the Scene
+                  </h4>
+                  <p className="text-amber-100 text-base leading-relaxed">
+                    {selectedPairings.pairings.atmosphere}
+                  </p>
+                </div>
+
+                {/* Genre Tags */}
+                <div className="flex flex-wrap gap-2">
+                  {selectedPairings.pairings.moodTags.map((tag, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 bg-red-600/30 text-amber-200 rounded-full text-sm font-medium"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Food and Drinks Grid */}
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* Food Recommendations */}
+                  <div className="space-y-4">
+                    <h4 className="text-amber-300 text-lg font-semibold flex items-center">
+                      <span className="text-xl mr-2">🍽️</span>
+                      Snacks & Foods
+                    </h4>
+                    <div className="space-y-3">
+                      {selectedPairings.pairings.foods.map((food, idx) => (
+                        <div
+                          key={idx}
+                          className="bg-black/20 rounded-lg p-3 border border-amber-500/20 hover:bg-black/30 transition-colors duration-200"
+                        >
+                          <div className="flex items-center">
+                            <span className="text-amber-400 font-medium flex-1">{food}</span>
+                            <span className="text-amber-600 text-xl">🍴</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Drink Recommendations */}
+                  <div className="space-y-4">
+                    <h4 className="text-amber-300 text-lg font-semibold flex items-center">
+                      <span className="text-xl mr-2">🥤</span>
+                      Drinks & Beverages
+                    </h4>
+                    <div className="space-y-3">
+                      {selectedPairings.pairings.drinks.map((drink, idx) => (
+                        <div
+                          key={idx}
+                          className="bg-black/20 rounded-lg p-3 border border-amber-500/20 hover:bg-black/30 transition-colors duration-200"
+                        >
+                          <div className="flex items-center">
+                            <span className="text-amber-400 font-medium flex-1">{drink}</span>
+                            <span className="text-amber-600 text-xl">🥂</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Pro Tips */}
+                <div className="bg-black/20 rounded-lg p-4 border border-amber-500/20">
+                  <h4 className="text-amber-300 text-lg font-semibold mb-3 flex items-center">
+                    <span className="text-xl mr-2">💡</span>
+                    Pro Tips
+                  </h4>
+                  <div className="space-y-2 text-amber-200 text-sm">
+                    <p className="flex items-start">
+                      <span className="text-amber-400 mr-2">•</span>
+                      Prepare snacks before starting to avoid missing important scenes
+                    </p>
+                    <p className="flex items-start">
+                      <span className="text-amber-400 mr-2">•</span>
+                      Keep drinks at arm's reach for uninterrupted viewing
+                    </p>
+                    <p className="flex items-start">
+                      <span className="text-amber-400 mr-2">•</span>
+                      Consider the show's runtime when choosing portion sizes
+                    </p>
+                    {selectedPairings.type === 'tv' && (
+                      <p className="flex items-start">
+                        <span className="text-amber-400 mr-2">•</span>
+                        For binge-watching, prepare multiple snack rounds
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3 pt-4 border-t border-amber-500/20">
+                  <button
+                    onClick={() => {
+                      closePairings();
+                      handleDetailsClick(selectedPairings);
+                    }}
+                    className="flex-1 bg-amber-600/20 hover:bg-amber-600/30 text-amber-200 border border-amber-500/50 hover:border-amber-400/70 rounded-lg py-3 px-4 font-medium transition-all duration-200 flex items-center justify-center space-x-2"
+                  >
+                    <span>ℹ️</span>
+                    <span>View Details</span>
+                  </button>
+                  {selectedPairings.trailer_url && (
+                    <button
+                      onClick={() => handleTrailerClick(selectedPairings.trailer_url, selectedPairings.title)}
+                      className="flex-1 bg-red-600/20 hover:bg-red-600/30 text-red-200 border border-red-500/50 hover:border-red-400/70 rounded-lg py-3 px-4 font-medium transition-all duration-200 flex items-center justify-center space-x-2"
+                    >
+                      <span>🎥</span>
+                      <span>Watch Trailer</span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Footer */}
