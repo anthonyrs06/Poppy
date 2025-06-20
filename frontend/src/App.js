@@ -319,7 +319,7 @@ const App = () => {
               {recommendations.map((rec, index) => (
                 <div
                   key={rec.id}
-                  className="bg-black/20 backdrop-blur-sm border border-amber-500/30 rounded-2xl overflow-hidden hover:bg-black/30 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+                  className="bg-black/20 backdrop-blur-sm border border-yellow-500/30 rounded-2xl overflow-hidden hover:bg-black/30 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
                 >
                   {/* Poster/Backdrop */}
                   <div className="relative h-80 bg-gradient-to-br from-red-600 to-amber-600 overflow-hidden">
