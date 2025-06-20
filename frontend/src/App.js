@@ -499,14 +499,14 @@ const App = () => {
                         )}
                         <button 
                           onClick={() => handleDetailsClick(rec)}
-                          className="flex-1 bg-amber-600/20 hover:bg-amber-600/30 text-amber-200 border border-amber-500/50 hover:border-amber-400/70 rounded-lg py-2 px-4 text-sm font-medium transition-all duration-200 flex items-center justify-center space-x-1"
+                          className="flex-1 bg-yellow-600/20 hover:bg-yellow-600/30 text-yellow-200 border border-yellow-500/50 hover:border-yellow-400/70 rounded-lg py-2 px-4 text-sm font-medium transition-all duration-200 flex items-center justify-center space-x-1"
                         >
                           <span>ℹ️</span>
                           <span>Details</span>
                         </button>
                         <button 
                           onClick={() => handlePairingsClick(rec)}
-                          className="flex-1 bg-red-600/20 hover:bg-red-600/30 text-red-200 border border-red-500/50 hover:border-red-400/70 rounded-lg py-2 px-4 text-sm font-medium transition-all duration-200 flex items-center justify-center space-x-1"
+                          className="flex-1 bg-red-700/20 hover:bg-red-700/30 text-red-200 border border-red-600/50 hover:border-red-500/70 rounded-lg py-2 px-4 text-sm font-medium transition-all duration-200 flex items-center justify-center space-x-1"
                         >
                           <span>🍿</span>
                           <span>Pairings</span>
