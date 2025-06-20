@@ -856,10 +856,10 @@ const App = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-black/30 backdrop-blur-sm border-t border-amber-500/20 mt-20">
+      <footer className="bg-black/30 backdrop-blur-sm border-t border-yellow-500/30 mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center">
-            <p className="text-amber-200">
+            <p className="text-yellow-200">
               Powered by AI • Made with ❤️ for entertainment lovers
             </p>
           </div>
