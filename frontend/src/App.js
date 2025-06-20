@@ -401,14 +401,14 @@ const App = () => {
                     {rec.streaming_availability && rec.streaming_availability.length > 0 && (
                       <div className="mb-4">
                         <div className="flex items-center justify-between mb-2">
-                          <p className="text-amber-300 text-sm font-medium flex items-center">
+                          <p className="text-yellow-300 text-sm font-medium flex items-center">
                             <span className="w-4 h-4 mr-2">📺</span>
                             Available on:
                           </p>
                           {rec.streaming_availability.length > 2 && (
                             <button
                               onClick={() => toggleStreamingOptions(rec.id)}
-                              className="text-amber-400 hover:text-amber-300 text-xs underline"
+                              className="text-yellow-400 hover:text-yellow-300 text-xs underline"
                             >
                               {expandedStreaming[rec.id] ? 'Show less' : `+${rec.streaming_availability.length - 2} more`}
                             </button>
