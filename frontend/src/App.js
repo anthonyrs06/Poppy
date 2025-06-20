@@ -391,8 +391,8 @@ const App = () => {
 
 
                     {/* Recommendation Reason */}
-                    <div className="bg-gradient-to-r from-amber-600/20 to-red-600/20 rounded-lg p-3 mb-4">
-                      <p className="text-amber-200 text-sm font-medium">
+                    <div className="bg-gradient-to-r from-yellow-600/20 to-red-700/20 rounded-lg p-3 mb-4">
+                      <p className="text-yellow-200 text-sm font-medium">
                         💡 {rec.recommendation_reason}
                       </p>
                     </div>
