@@ -270,13 +270,13 @@ const App = () => {
 
           {/* Mood Suggestions */}
           <div className="mt-8">
-            <p className="text-amber-200 text-center mb-4">Or try one of these vibes:</p>
+            <p className="text-yellow-200 text-center mb-4">Or try one of these vibes:</p>
             <div className="flex flex-wrap justify-center gap-3">
               {moodSuggestions.map((suggestion, index) => (
                 <button
                   key={index}
                   onClick={() => handleSuggestionClick(suggestion)}
-                  className="px-4 py-2 bg-black/20 hover:bg-black/30 text-amber-200 hover:text-white rounded-full border border-amber-500/30 hover:border-amber-400/60 transition-all duration-200 text-sm"
+                  className="px-4 py-2 bg-black/20 hover:bg-black/30 text-yellow-200 hover:text-white rounded-full border border-yellow-500/30 hover:border-yellow-400/60 transition-all duration-200 text-sm"
                   disabled={loading}
                 >
                   {suggestion}
