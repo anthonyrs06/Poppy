@@ -711,7 +711,7 @@ const App = () => {
               }
             }}
           >
-            <div className="bg-gradient-to-br from-red-900/95 to-amber-900/95 backdrop-blur-md border border-amber-500/30 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto modal-content">
+            <div className="bg-gradient-to-br from-red-950/95 to-yellow-900/95 backdrop-blur-md border border-yellow-500/30 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto modal-content">
               {/* Modal Header */}
               <div className="flex items-center justify-between p-6 border-b border-amber-500/20">
                 <div>
