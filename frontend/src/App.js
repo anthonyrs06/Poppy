@@ -418,7 +418,7 @@ const App = () => {
                           {(expandedStreaming[rec.id] ? rec.streaming_availability : rec.streaming_availability.slice(0, 2)).map((service, idx) => (
                             <div
                               key={idx}
-                              className="flex items-center justify-between p-2 bg-black/20 rounded-lg border border-amber-500/20 hover:bg-black/30 transition-colors duration-200"
+                              className="flex items-center justify-between p-2 bg-black/20 rounded-lg border border-yellow-500/20 hover:bg-black/30 transition-colors duration-200"
                             >
                               <div className="flex items-center space-x-2">
                                 <span className="text-green-400 font-medium text-sm">
