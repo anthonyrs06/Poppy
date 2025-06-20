@@ -245,7 +245,7 @@ const App = () => {
                 value={moodQuery}
                 onChange={(e) => setMoodQuery(e.target.value)}
                 placeholder="Describe your mood or what you're in the mood for... (e.g., 'I want something cozy and heartwarming for a Sunday afternoon')"
-                className="w-full p-6 bg-black/20 backdrop-blur-sm border border-amber-500/30 rounded-2xl text-white placeholder-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent resize-none h-32 text-lg"
+                className="w-full p-6 bg-black/20 backdrop-blur-sm border border-yellow-500/30 rounded-2xl text-white placeholder-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent resize-none h-32 text-lg"
                 disabled={loading}
               />
             </div>
