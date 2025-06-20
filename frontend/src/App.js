@@ -382,7 +382,7 @@ const App = () => {
                       {rec.genre.map((genre, idx) => (
                         <span
                           key={idx}
-                          className="px-2 py-1 bg-red-600/30 text-amber-200 rounded-full text-xs"
+                          className="px-2 py-1 bg-red-700/40 text-yellow-200 rounded-full text-xs"
                         >
                           {genre}
                         </span>
