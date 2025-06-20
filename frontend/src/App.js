@@ -201,16 +201,24 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-900 via-amber-900 to-orange-900">
       {/* Header */}
-      <header className="bg-black/30 backdrop-blur-sm border-b border-amber-500/20">
+      <header className="bg-black/30 backdrop-blur-sm border-b border-yellow-500/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-red-600 to-amber-600 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-xl">P</span>
+            <div className="flex items-center space-x-4">
+              {/* Poppy Logo */}
+              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full flex items-center justify-center border-2 border-yellow-400/50 shadow-lg">
+                <div className="w-8 h-8 bg-red-700 rounded-md flex items-center justify-center relative">
+                  {/* Popcorn character face */}
+                  <div className="text-yellow-400 text-xs">🍿</div>
+                  {/* Golden accent dots */}
+                  <div className="absolute -top-1 -left-1 w-2 h-2 bg-yellow-400 rounded-full opacity-80"></div>
+                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-400 rounded-full opacity-80"></div>
+                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-yellow-400 rounded-full opacity-80"></div>
+                </div>
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-white">Poppy</h1>
-                <p className="text-amber-200 text-sm">AI-Powered Entertainment Discovery</p>
+                <p className="text-yellow-200 text-sm">AI-Powered Entertainment Discovery</p>
               </div>
             </div>
           </div>
