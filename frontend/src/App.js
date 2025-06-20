@@ -452,7 +452,7 @@ const App = () => {
                                 {service.link && (
                                   <button
                                     onClick={() => window.open(service.link, '_blank')}
-                                    className="text-amber-400 hover:text-amber-300 text-xs"
+                                    className="text-yellow-400 hover:text-yellow-300 text-xs"
                                   >
                                     →
                                   </button>
