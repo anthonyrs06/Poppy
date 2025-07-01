@@ -778,12 +778,12 @@ const App = () => {
               {/* Modal Content */}
               <div className="p-6 space-y-6">
                 {/* Atmosphere Setting */}
-                <div className="bg-gradient-to-r from-amber-600/20 to-red-600/20 rounded-lg p-4">
-                  <h4 className="text-amber-300 text-lg font-semibold mb-2 flex items-center">
+                <div className="bg-gradient-to-r from-yellow-600/20 to-red-700/20 rounded-lg p-4">
+                  <h4 className="text-yellow-300 text-lg font-semibold mb-2 flex items-center">
                     <span className="text-xl mr-2">🎭</span>
                     Set the Scene
                   </h4>
-                  <p className="text-amber-100 text-base leading-relaxed">
+                  <p className="text-yellow-100 text-base leading-relaxed">
                     {selectedPairings.pairings.atmosphere}
                   </p>
                 </div>
