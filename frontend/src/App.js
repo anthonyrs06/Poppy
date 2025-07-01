@@ -793,7 +793,7 @@ const App = () => {
                   {selectedPairings.pairings.moodTags.map((tag, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1 bg-red-600/30 text-amber-200 rounded-full text-sm font-medium"
+                      className="px-3 py-1 bg-red-700/40 text-yellow-200 rounded-full text-sm font-medium"
                     >
                       {tag}
                     </span>
