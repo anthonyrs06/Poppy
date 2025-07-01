@@ -880,7 +880,7 @@ const App = () => {
                       closePairings();
                       handleDetailsClick(selectedPairings);
                     }}
-                    className="flex-1 bg-amber-600/20 hover:bg-amber-600/30 text-amber-200 border border-amber-500/50 hover:border-amber-400/70 rounded-lg py-3 px-4 font-medium transition-all duration-200 flex items-center justify-center space-x-2"
+                    className="flex-1 bg-yellow-600/20 hover:bg-yellow-600/30 text-yellow-200 border border-yellow-500/50 hover:border-yellow-400/70 rounded-lg py-3 px-4 font-medium transition-all duration-200 flex items-center justify-center space-x-2"
                   >
                     <span>ℹ️</span>
                     <span>View Details</span>
@@ -888,7 +888,7 @@ const App = () => {
                   {selectedPairings.trailer_url && (
                     <button
                       onClick={() => handleTrailerClick(selectedPairings.trailer_url, selectedPairings.title)}
-                      className="flex-1 bg-red-600/20 hover:bg-red-600/30 text-red-200 border border-red-500/50 hover:border-red-400/70 rounded-lg py-3 px-4 font-medium transition-all duration-200 flex items-center justify-center space-x-2"
+                      className="flex-1 bg-red-700/20 hover:bg-red-700/30 text-red-200 border border-red-600/50 hover:border-red-500/70 rounded-lg py-3 px-4 font-medium transition-all duration-200 flex items-center justify-center space-x-2"
                     >
                       <span>🎥</span>
                       <span>Watch Trailer</span>
