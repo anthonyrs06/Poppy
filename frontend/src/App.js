@@ -612,7 +612,7 @@ const App = () => {
                   <div className="flex-1 space-y-4">
                     {/* Type and Rating */}
                     <div className="flex items-center gap-4">
-                      <span className="px-3 py-1 bg-red-600/30 text-amber-200 rounded-full text-sm font-medium capitalize">
+                      <span className="px-3 py-1 bg-red-700/40 text-yellow-200 rounded-full text-sm font-medium capitalize">
                         {selectedDetails.type}
                       </span>
                       <span className={`font-bold text-lg ${getRatingColor(selectedDetails.rating)}`}>
@@ -622,12 +622,12 @@ const App = () => {
 
                     {/* Genres */}
                     <div>
-                      <h4 className="text-amber-300 text-sm font-medium mb-2">Genres</h4>
+                      <h4 className="text-yellow-300 text-sm font-medium mb-2">Genres</h4>
                       <div className="flex flex-wrap gap-2">
                         {selectedDetails.genre.map((genre, idx) => (
                           <span
                             key={idx}
-                            className="px-3 py-1 bg-red-600/30 text-amber-200 rounded-full text-sm"
+                            className="px-3 py-1 bg-red-700/40 text-yellow-200 rounded-full text-sm"
                           >
                             {genre}
                           </span>
@@ -637,9 +637,9 @@ const App = () => {
 
                     {/* Why We Recommended It */}
                     <div>
-                      <h4 className="text-amber-300 text-sm font-medium mb-2">Why We Recommended This</h4>
-                      <div className="bg-gradient-to-r from-amber-600/20 to-red-600/20 rounded-lg p-3">
-                        <p className="text-amber-200 text-sm">
+                      <h4 className="text-yellow-300 text-sm font-medium mb-2">Why We Recommended This</h4>
+                      <div className="bg-gradient-to-r from-yellow-600/20 to-red-700/20 rounded-lg p-3">
+                        <p className="text-yellow-200 text-sm">
                           💡 {selectedDetails.recommendation_reason}
                         </p>
                       </div>
