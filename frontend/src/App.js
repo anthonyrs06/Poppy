@@ -723,9 +723,22 @@ const App = () => {
                       <span>Watch Trailer</span>
                     </button>
                   )}
-                  <button className="flex-1 bg-amber-600/20 hover:bg-amber-600/30 text-amber-200 border border-amber-500/50 hover:border-amber-400/70 rounded-lg py-3 px-4 font-medium transition-all duration-200 flex items-center justify-center space-x-2">
-                    <span>💾</span>
-                    <span>Save to List</span>
+                  <button 
+                    onClick={() => handleRemixClick(selectedDetails)}
+                    disabled={loading}
+                    className="flex-1 bg-yellow-600/20 hover:bg-yellow-600/30 text-yellow-200 border border-yellow-500/50 hover:border-yellow-400/70 rounded-lg py-3 px-4 font-medium transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {loading ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-yellow-200 border-t-transparent rounded-full animate-spin"></div>
+                        <span>Remixing...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>🎲</span>
+                        <span>Remix</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </div>
