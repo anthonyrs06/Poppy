@@ -825,7 +825,7 @@ const App = () => {
 
                   {/* Drink Recommendations */}
                   <div className="space-y-4">
-                    <h4 className="text-amber-300 text-lg font-semibold flex items-center">
+                    <h4 className="text-yellow-300 text-lg font-semibold flex items-center">
                       <span className="text-xl mr-2">🥤</span>
                       Drinks & Beverages
                     </h4>
@@ -833,11 +833,11 @@ const App = () => {
                       {selectedPairings.pairings.drinks.map((drink, idx) => (
                         <div
                           key={idx}
-                          className="bg-black/20 rounded-lg p-3 border border-amber-500/20 hover:bg-black/30 transition-colors duration-200"
+                          className="bg-black/20 rounded-lg p-3 border border-yellow-500/20 hover:bg-black/30 transition-colors duration-200"
                         >
                           <div className="flex items-center">
-                            <span className="text-amber-400 font-medium flex-1">{drink}</span>
-                            <span className="text-amber-600 text-xl">🥂</span>
+                            <span className="text-yellow-400 font-medium flex-1">{drink}</span>
+                            <span className="text-yellow-600 text-xl">🥂</span>
                           </div>
                         </div>
                       ))}
