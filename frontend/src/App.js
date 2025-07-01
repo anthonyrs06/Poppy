@@ -759,17 +759,17 @@ const App = () => {
           >
             <div className="bg-gradient-to-br from-red-950/95 to-yellow-900/95 backdrop-blur-md border border-yellow-500/30 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto modal-content">
               {/* Modal Header */}
-              <div className="flex items-center justify-between p-6 border-b border-amber-500/20">
+              <div className="flex items-center justify-between p-6 border-b border-yellow-500/20">
                 <div>
                   <h3 className="text-2xl font-bold text-white flex items-center">
                     <span className="text-3xl mr-3">🍿</span>
                     Perfect Pairings
                   </h3>
-                  <p className="text-amber-300 text-sm mt-1">For "{selectedPairings.title}"</p>
+                  <p className="text-yellow-300 text-sm mt-1">For "{selectedPairings.title}"</p>
                 </div>
                 <button
                   onClick={closePairings}
-                  className="text-amber-300 hover:text-white transition-colors duration-200 text-2xl"
+                  className="text-yellow-300 hover:text-white transition-colors duration-200 text-2xl"
                 >
                   ✕
                 </button>
