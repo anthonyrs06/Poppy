@@ -593,7 +593,7 @@ const App = () => {
                 <div className="flex flex-col md:flex-row gap-6">
                   {/* Poster */}
                   <div className="flex-shrink-0">
-                    <div className="w-48 h-72 bg-gradient-to-br from-red-600 to-amber-600 rounded-lg overflow-hidden">
+                    <div className="w-48 h-72 bg-gradient-to-br from-red-700 to-yellow-600 rounded-lg overflow-hidden">
                       {selectedDetails.poster_url ? (
                         <img
                           src={selectedDetails.poster_url}
