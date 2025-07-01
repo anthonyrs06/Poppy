@@ -846,27 +846,27 @@ const App = () => {
                 </div>
 
                 {/* Pro Tips */}
-                <div className="bg-black/20 rounded-lg p-4 border border-amber-500/20">
-                  <h4 className="text-amber-300 text-lg font-semibold mb-3 flex items-center">
+                <div className="bg-black/20 rounded-lg p-4 border border-yellow-500/20">
+                  <h4 className="text-yellow-300 text-lg font-semibold mb-3 flex items-center">
                     <span className="text-xl mr-2">💡</span>
                     Pro Tips
                   </h4>
-                  <div className="space-y-2 text-amber-200 text-sm">
+                  <div className="space-y-2 text-yellow-200 text-sm">
                     <p className="flex items-start">
-                      <span className="text-amber-400 mr-2">•</span>
+                      <span className="text-yellow-400 mr-2">•</span>
                       Prepare snacks before starting to avoid missing important scenes
                     </p>
                     <p className="flex items-start">
-                      <span className="text-amber-400 mr-2">•</span>
+                      <span className="text-yellow-400 mr-2">•</span>
                       Keep drinks at arm's reach for uninterrupted viewing
                     </p>
                     <p className="flex items-start">
-                      <span className="text-amber-400 mr-2">•</span>
+                      <span className="text-yellow-400 mr-2">•</span>
                       Consider the show's runtime when choosing portion sizes
                     </p>
                     {selectedPairings.type === 'tv' && (
                       <p className="flex items-start">
-                        <span className="text-amber-400 mr-2">•</span>
+                        <span className="text-yellow-400 mr-2">•</span>
                         For binge-watching, prepare multiple snack rounds
                       </p>
                     )}
