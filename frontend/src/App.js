@@ -713,7 +713,7 @@ const App = () => {
                 )}
 
                 {/* Action Buttons */}
-                <div className="flex gap-3 pt-4 border-t border-amber-500/20">
+                <div className="flex gap-3 pt-4 border-t border-yellow-500/20">
                   {selectedDetails.trailer_url && (
                     <button
                       onClick={() => handleTrailerClick(selectedDetails.trailer_url, selectedDetails.title)}
