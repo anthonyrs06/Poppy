@@ -25,6 +25,39 @@ const App = () => {
     "Nostalgic comfort viewing"
   ];
 
+  const handleRemixClick = async (recommendation) => {
+    setLoading(true);
+    setError('');
+    
+    try {
+      // Create a remix prompt based on the current recommendation
+      const remixPrompt = `I liked the idea of "${recommendation.title}" but want something different. Give me something similar but not the same - same vibe and genres (${recommendation.genre.join(', ')}) but a different movie/show. ${recommendation.recommendation_reason}`;
+      
+      const response = await axios.post(`${API_BASE_URL}/api/recommendations`, {
+        mood: remixPrompt,
+        user_id: 'demo-user'
+      });
+      
+      if (response.data.recommendations && response.data.recommendations.length > 0) {
+        // Get a recommendation that's different from the current one
+        const newRec = response.data.recommendations.find(rec => 
+          rec.title.toLowerCase() !== recommendation.title.toLowerCase()
+        ) || response.data.recommendations[0];
+        
+        // Close current details and show new one
+        closeDetails();
+        setTimeout(() => {
+          handleDetailsClick(newRec);
+        }, 300);
+      }
+    } catch (err) {
+      console.error('Error getting remix recommendation:', err);
+      setError('Failed to get a remix recommendation. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handlePairingsClick = (recommendation) => {
     const pairings = generatePairings(recommendation);
     setSelectedPairings({
